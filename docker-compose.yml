@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: spotify-queue-mongo
+    image: mongo:latest
+    restart: always
+    volumes:
+      - db:/var/db
+    ports:
+      - "127.0.0.1:27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+volumes:
+  db: {}
