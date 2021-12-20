@@ -1,0 +1,35 @@
+/* Variables */
+:root {
+  --spotify-green: #1db954;
+  --spotify-dark-green: #15883e;
+  --spotify-black: #191414;
+  --gray: #e8e8e8;
+}
+
+/* Fonts */
+@font-face {
+  font-family: spotify-regular;
+  src: url("../fonts/spotify-regular.woff2");
+}
+@font-face {
+  font-family: spotify-medium;
+  src: url("../fonts/spotify-medium.woff2");
+}
+@font-face {
+  font-family: spotify-bold;
+  src: url("../fonts/spotify-bold.woff2");
+}
+
+/* Globals */
+* {
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--spotify-black);
+  color: var(--gray);
+  font-family: spotify-regular, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
