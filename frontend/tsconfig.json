@@ -15,10 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "typeRoots": ["./@types"],
     "baseUrl": "./src",
     "paths": {
       "~/*": ["./*"]
     }
   },
-  "include": ["./src"]
+  "include": ["./"]
 }

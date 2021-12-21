@@ -9,7 +9,7 @@ export default function HomePage() {
   const navigation = useNavigate();
 
   return (
-    <Page title="Welcome" indexed>
+    <Page title="Welcome" indexed requireAuth>
       <Centered centered={CENTERED.BOTH}>
         <SpotifyButton
           text="Join a Session"

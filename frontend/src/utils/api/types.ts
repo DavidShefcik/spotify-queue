@@ -1,3 +1,1 @@
-export interface TestResponse {
-  value: string[];
-}
+export type AuthCheckResponse = User;
