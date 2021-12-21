@@ -1,9 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
 import { Helmet } from "react-helmet";
 
 import SessionContext from "~/context/SessionContext";
+import FullPageLoading from "./FullPageLoading";
 
 interface Props {
   title?: string;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function Page({ title, indexed, requireAuth, children }: Props) {
+  const [loading, setLoading] = useState(true);
   const { session } = useContext(SessionContext);
   const { loggedIn } = session;
 
@@ -27,6 +29,8 @@ export default function Page({ title, indexed, requireAuth, children }: Props) {
           redirectTo: location.pathname,
         },
       });
+    } else {
+      setLoading(false);
     }
   }, [requireAuth, loggedIn]);
 
@@ -38,7 +42,7 @@ export default function Page({ title, indexed, requireAuth, children }: Props) {
           <meta name="robots" content="noindex, nofollow" />
         )}
       </Helmet>
-      {children}
+      {loading ? <FullPageLoading /> : children}
     </>
   );
 }
