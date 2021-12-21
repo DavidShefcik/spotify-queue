@@ -1,7 +1,10 @@
+import Navigation from "./Navigation";
+import GlobalContextProvider from "~/context/GlobalContextProvider";
+
 export default function App() {
   return (
-    <div>
-      <p>App</p>
-    </div>
+    <GlobalContextProvider>
+      <Navigation />
+    </GlobalContextProvider>
   );
 }
