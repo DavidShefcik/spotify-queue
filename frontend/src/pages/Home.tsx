@@ -1,9 +1,10 @@
+import Page from "~/components/Page";
 import SpotifyButton from "~/components/SpotifyButton";
 
 export default function HomePage() {
   return (
-    <div>
+    <Page title="Welcome" indexed>
       <SpotifyButton text="Button" onClick={() => console.log("Click")} />
-    </div>
+    </Page>
   );
 }

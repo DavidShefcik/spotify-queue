@@ -1,7 +1,9 @@
+import Page from "~/components/Page";
+
 export default function LoginPage() {
   return (
-    <div>
+    <Page title="Login" indexed>
       <p>Login page</p>
-    </div>
+    </Page>
   );
 }
