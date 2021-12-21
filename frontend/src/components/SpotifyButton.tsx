@@ -1,5 +1,6 @@
 import { css, StyleSheet } from "aphrodite";
 import { PulseLoader } from "react-spinners";
+import { PREVENT_TEXT_HIGHLIGHTING } from "~/constants/styles";
 
 interface Props {
   text: string;
@@ -34,6 +35,7 @@ export default function SpotifyButton({
 
 const styles = StyleSheet.create({
   button: {
+    ...PREVENT_TEXT_HIGHLIGHTING,
     color: "white",
     backgroundColor: "var(--spotify-green)",
     padding: "16px 14px 18px",
