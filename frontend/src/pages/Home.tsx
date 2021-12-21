@@ -1,7 +1,9 @@
+import SpotifyButton from "~/components/SpotifyButton";
+
 export default function HomePage() {
   return (
     <div>
-      <p>Home page</p>
+      <SpotifyButton text="Button" onClick={() => console.log("Click")} />
     </div>
   );
 }
