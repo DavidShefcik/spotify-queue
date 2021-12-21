@@ -21,12 +21,12 @@ export default function Page({ title, indexed, requireAuth, children }: Props) {
 
   useEffect(() => {
     if (requireAuth && !loggedIn) {
-      navigation(
-        `/login?redirect_to=${encodeURIComponent(location.pathname)}`,
-        {
-          replace: true,
-        }
-      );
+      navigation("/login", {
+        replace: true,
+        state: {
+          redirectTo: location.pathname,
+        },
+      });
     }
   }, [requireAuth, loggedIn]);
 
