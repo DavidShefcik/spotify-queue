@@ -1,6 +1,18 @@
 version: "3"
 
 services:
+  proxy:
+    container_name: spotify-queue-reverse-proxy
+    image: traefik:v2.2
+    command: --api.insecure=true --providers.docker
+    ports:
+        - '80:80'
+        - '443:443'
+        - '8080:8080'
+    volumes:
+        # So that Traefik can listen to the Docker events
+        - /var/run/docker.sock:/var/run/docker.sock
+
   mongo:
     container_name: spotify-queue-mongo
     image: mongo:latest
@@ -12,6 +24,42 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: username
       MONGO_INITDB_ROOT_PASSWORD: password
+
+  api:
+    container_name: spotify-queue-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/srv/api
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./api/.env
+    depends_on:
+      - mongo
+      - proxy
+    labels:
+      - 'traefik.http.routers.backend.rule=Host(`spotify.localhost`) && PathPrefix(`/api`)'
+      - 'traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes=/api'
+      - 'traefik.http.routers.backend.middlewares=backend-stripprefix'
+
+  frontend:
+    container_name: spotify-queue-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/srv/frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - api
+      - proxy
+    labels:
+      - 'traefik.http.routers.frontend.rule=Host(`spotify.localhost`)'
 
 volumes:
   db: {}
