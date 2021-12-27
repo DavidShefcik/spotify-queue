@@ -8,6 +8,7 @@ uvicorn = {version = "==0.16.0", extras = ["standard"]}
 fastapi = "==0.70.1"
 requests = "==2.26.0"
 python-dotenv = "==0.19.2"
+mongoengine = "==0.23.1"
 
 [dev-packages]
 
