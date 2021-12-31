@@ -1,5 +1,4 @@
 import { ReactChild, useState, useEffect } from "react";
-import { PulseLoader } from "react-spinners";
 
 import SessionContext from "./SessionContext";
 import FullPageLoading from "~/components/FullPageLoading";

@@ -10,29 +10,36 @@ interface Props {
   title?: string;
   indexed?: boolean;
   requireAuth?: boolean;
+  requireNotAuth?: boolean;
   children: ReactNode;
 }
 
-export default function Page({ title, indexed, requireAuth, children }: Props) {
+export default function Page({
+  title,
+  indexed,
+  requireAuth,
+  requireNotAuth,
+  children,
+}: Props) {
   const [loading, setLoading] = useState(true);
   const { session } = useContext(SessionContext);
   const { loggedIn } = session;
 
   const navigation = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     if (requireAuth && !loggedIn) {
       navigation("/login", {
         replace: true,
-        state: {
-          redirectTo: location.pathname,
-        },
+      });
+    } else if (requireNotAuth && loggedIn) {
+      navigation("/", {
+        replace: true,
       });
     } else {
       setLoading(false);
     }
-  }, [requireAuth, loggedIn]);
+  }, [requireAuth, requireNotAuth, loggedIn]);
 
   return (
     <>

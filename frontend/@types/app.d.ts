@@ -1,6 +1,8 @@
 declare interface User {
-  id: string;
+  _id: string;
   username: string;
+  spotifyId: string;
+  hasSpotifyPremium: boolean;
 }
 declare interface Session {
   loggedIn: boolean;

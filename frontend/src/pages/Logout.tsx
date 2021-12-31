@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Page from "~/components/Page";
 import FullPageLoading from "~/components/FullPageLoading";
@@ -10,12 +9,19 @@ export default function LogoutPage() {
   const { setSession } = useContext(SessionContext);
 
   useEffect(() => {
-    logout();
-  }, []);
+    (async () => {
+      try {
+        await api.post("/auth/logout");
 
-  const logout = async () => {
-    console.log("Logout");
-  };
+        setSession({
+          loggedIn: false,
+          user: null,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <Page title="Logout" requireAuth>

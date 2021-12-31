@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
@@ -17,7 +16,7 @@ export default function LoginPage() {
       const { data } = await api.get<LoginResponse>("/auth/login");
       const { oauth_url } = data;
 
-      console.log(oauth_url);
+      window.location.href = oauth_url;
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +25,7 @@ export default function LoginPage() {
   };
 
   return (
-    <Page title="Login" indexed>
+    <Page title="Login" indexed requireNotAuth>
       <Centered centered={CENTERED.BOTH}>
         <SpotifyButton
           text="Login with Spotify"
