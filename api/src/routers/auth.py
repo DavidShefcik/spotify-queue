@@ -21,7 +21,7 @@ async def login():
   return LoginResponse(oauth_url=oauth_url)
 
 @router.post("/login/callback", response_model=LoginCallbackResponse)
-async def login_callback(body: LoginCallbackBody):
+async def login_callback(body: LoginCallbackBody, response: Response):
   code = body.code
 
   new_user = None
@@ -62,6 +62,8 @@ async def login_callback(body: LoginCallbackBody):
       raise HTTPException(status_code=500, detail=ERROR_MESSAGES['internal_server_error'])
 
   new_user_as_json = remove_sensitive_database_user_values(new_user, remove_local_token=False)
+
+  response.set_cookie(key="token", value=new_user["localToken"], secure=True, httponly=True);
 
   return new_user_as_json
 
