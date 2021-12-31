@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, HTTPException, Depends, Request, Response
 from uuid import uuid4
 
@@ -11,6 +12,9 @@ from src.utils.user import remove_sensitive_database_user_values, remove_sensiti
 from src.utils.auth import logout_user
 from src.exceptions.spotify_api import SpotifyOAuthError, SpotifyAPIError
 from src.constants.errors import ERROR_MESSAGES
+
+SECONDS_PER_DAY = (60 * 60) * 24
+THIRTY_DAYS_IN_SECONDS = SECONDS_PER_DAY * 30
 
 router = APIRouter(prefix="/auth")
 
@@ -63,7 +67,7 @@ async def login_callback(body: LoginCallbackBody, response: Response):
 
   new_user_as_json = remove_sensitive_database_user_values(new_user, remove_local_token=False)
 
-  response.set_cookie(key="token", value=new_user["localToken"], secure=True, httponly=True);
+  response.set_cookie(key="token", value=new_user["localToken"], domain=os.getenv("COOKIE_DOMAIN"), secure=True, httponly=True, expires=THIRTY_DAYS_IN_SECONDS)
 
   return new_user_as_json
 
@@ -76,7 +80,7 @@ async def check(request: Request):
   return result
 
 @router.post("/logout", dependencies=[Depends(require_auth)], response_model=LogoutResponse)
-async def logout(request: Request):
+async def logout(request: Request, response: Response):
   user_data = request.state.user
   local_token = user_data['localToken']
 
@@ -84,5 +88,9 @@ async def logout(request: Request):
     await logout_user(local_token)
   except:
     raise HTTPException(status_code=500, detail=ERROR_MESSAGES['internal_server_error'])
+  
+  res = Response(status_code=200)
 
-  return Response(status_code=201)
+  res.delete_cookie(key="token")
+
+  return res

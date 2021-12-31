@@ -2,6 +2,8 @@ from mongoengine import Document
 from mongoengine.document import EmbeddedDocument
 from mongoengine.fields import BooleanField, EmbeddedDocumentField, IntField, ListField, StringField, DateTimeField
 
+# TODO: indexes
+
 # ===================
 # Users
 # ===================
