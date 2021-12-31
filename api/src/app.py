@@ -5,6 +5,7 @@ from mongoengine import connect
 
 # Routers
 from .routers import auth
+from .routers import users
 
 # Dotenv
 load_dotenv()
@@ -24,3 +25,4 @@ async def startup_event():
     sys.exit(1)
 
 app.include_router(auth.router)
+app.include_router(users.router)
