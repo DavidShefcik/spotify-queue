@@ -7,7 +7,7 @@ class SanitizedUserDataWithoutToken(BaseModel):
   _id: str
   username: str
   spotifyId: str
-  hasSpotifyPremium: str
+  hasSpotifyPremium: bool
 
 class SanitizedUserDataWithToken(SanitizedUserDataWithoutToken):
   localToken: str
