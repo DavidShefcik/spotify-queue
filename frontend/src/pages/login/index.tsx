@@ -4,7 +4,6 @@ import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
 import SpotifyButton from "~/components/SpotifyButton";
 import { api } from "~/utils/api";
-import { LoginResponse } from "~/utils/api/types";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -12,13 +11,12 @@ export default function LoginPage() {
   const login = async () => {
     setLoading(true);
 
-    try {
-      const { data } = await api.get<LoginResponse>("/auth/login");
-      const { oauth_url } = data;
+    const { response } = await api.login();
+
+    if (response) {
+      const { oauth_url } = response;
 
       window.location.href = oauth_url;
-    } catch (error) {
-      console.error(error);
     }
 
     setLoading(false);

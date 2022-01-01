@@ -10,16 +10,11 @@ export default function LogoutPage() {
 
   useEffect(() => {
     (async () => {
-      try {
-        await api.post("/auth/logout");
-
-        setSession({
-          loggedIn: false,
-          user: null,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      await api.logout();
+      setSession({
+        loggedIn: false,
+        user: null,
+      });
     })();
   }, []);
 

@@ -7,7 +7,6 @@ import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
 import SpotifyButton from "~/components/SpotifyButton";
 import { api } from "~/utils/api";
-import { LoginCallbackResponse } from "~/utils/api/types";
 import SessionContext from "~/context/SessionContext";
 
 export default function Callback() {
@@ -23,30 +22,25 @@ export default function Callback() {
     const error = searchParams.get("error");
     const code = searchParams.get("code");
 
-    if (error) {
+    if (error || !code) {
       setError(true);
       setLoading(false);
     } else {
       (async () => {
-        try {
-          const { data: user } = await api.post<LoginCallbackResponse>(
-            "/auth/login/callback",
-            {
-              code,
-            }
-          );
+        const { error, response } = await api.loginCallback({
+          code,
+        });
 
-          setLoading(false);
+        if (error) {
+          setError(true);
+        } else if (response) {
           setSession({
             loggedIn: true,
-            user,
+            user: response,
           });
-        } catch (error) {
-          console.log(error);
-
-          setError(true);
-          setLoading(false);
         }
+
+        setLoading(false);
       })();
     }
   }, []);

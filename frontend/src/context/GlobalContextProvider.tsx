@@ -3,7 +3,6 @@ import { ReactChild, useState, useEffect } from "react";
 import SessionContext from "./SessionContext";
 import FullPageLoading from "~/components/FullPageLoading";
 import { api } from "~/utils/api";
-import { AuthCheckResponse } from "~/utils/api/types";
 
 interface Props {
   children: ReactChild;
@@ -24,21 +23,20 @@ export default function GlobalContextProvider({ children }: Props) {
   useEffect(() => {
     (async () => {
       // Session check
-      try {
-        const { data } = await api.get<AuthCheckResponse>("/auth/check");
+      const { error, response } = await api.authCheck();
 
-        setSession({
-          loggedIn: true,
-          user: data,
-        });
-      } catch (error) {
-        console.error(error);
-
+      if (error) {
         setSession({
           loggedIn: false,
           user: null,
         });
+      } else if (response) {
+        setSession({
+          loggedIn: true,
+          user: response,
+        });
       }
+
       setLoading(false);
     })();
   }, []);
