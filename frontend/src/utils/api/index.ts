@@ -24,7 +24,8 @@ interface APIResponse<T> {
 }
 
 const apiAxiosClient = axios.create({
-  baseURL: "http://spotify.localhost/api", // TODO: Move this to an env variable
+  // @ts-ignore - __API_URL__
+  baseURL: __API_URL__,
   timeout: 10000,
   withCredentials: true,
 });

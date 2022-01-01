@@ -14,4 +14,7 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  define: {
+    __API_URL__: JSON.stringify(process.env.API_URL),
+  },
 });
