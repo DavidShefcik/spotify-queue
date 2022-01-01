@@ -91,6 +91,6 @@ async def logout(request: Request, response: Response):
   
   res = Response(status_code=200)
 
-  res.delete_cookie(key="token")
+  res.delete_cookie(key="token", domain=os.getenv("COOKIE_DOMAIN"))
 
   return res
