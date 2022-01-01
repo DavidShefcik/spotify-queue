@@ -7,7 +7,9 @@ from src.exceptions.spotify_api import SpotifyOAuthError, SpotifyAPIError
 # streaming to control streaming of music. User must have Spotify premium
 # user-read-private to determine the subscription type of the user
 # user-library-modify for users to save a song to their liked music playlist
-SPOTIFY_OAUTH_SCOPES = ['streaming', 'user-read-private', 'user-library-modify']
+# user-read-playback-state to get the info of the current playback status
+# user-modify-playback-state to modify the user's playback status
+SPOTIFY_OAUTH_SCOPES = ['streaming', 'user-read-private', 'user-library-modify', 'user-read-playback-state', 'user-modify-playback-state']
 SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1"
 
 async def refresh_spotify_token(refresh_token: str):
