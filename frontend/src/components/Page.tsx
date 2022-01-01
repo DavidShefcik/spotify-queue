@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
 import { Helmet } from "react-helmet";
 
@@ -22,24 +22,23 @@ export default function Page({
   children,
 }: Props) {
   const [loading, setLoading] = useState(true);
-  const { session } = useContext(SessionContext);
-  const { loggedIn } = session;
+  const session = useContext(SessionContext);
 
   const navigation = useNavigate();
 
   useEffect(() => {
-    if (requireAuth && !loggedIn) {
+    if (requireAuth && !session.isLoggedIn) {
       navigation("/login", {
         replace: true,
       });
-    } else if (requireNotAuth && loggedIn) {
+    } else if (requireNotAuth && session.isLoggedIn) {
       navigation("/", {
         replace: true,
       });
     } else {
       setLoading(false);
     }
-  }, [requireAuth, requireNotAuth, loggedIn]);
+  }, [requireAuth, requireNotAuth, session.isLoggedIn]);
 
   return (
     <>

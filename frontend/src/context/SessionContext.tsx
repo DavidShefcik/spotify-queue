@@ -1,17 +1,33 @@
 import { createContext } from "react";
 
-// TODO: Replace context functions with a class that contains
-// the values (loggedIn status and user) along with
-// methods to easily log in and out, update user details, etc.
 export interface ISessionContext {
   session: Session;
   setSession(value: Session): void;
 }
 
-export default createContext<ISessionContext>({
-  session: {
-    loggedIn: false,
-    user: null,
-  },
-  setSession: () => {},
-});
+class SessionContext {
+  isLoggedIn: boolean = false;
+  user: User | null = null;
+
+  login(user: User) {
+    this.isLoggedIn = true;
+    this.user = user;
+  }
+  logout() {
+    this.isLoggedIn = false;
+    this.user = null;
+  }
+  updateUser(values: Partial<User>) {
+    if (this.isLoggedIn) {
+      const newUser = Object.assign(this.user, values);
+
+      this.user = newUser;
+    }
+  }
+}
+
+const session = new SessionContext();
+
+export default createContext<SessionContext>(session);
+
+export { session };
