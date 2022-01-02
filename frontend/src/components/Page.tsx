@@ -21,7 +21,6 @@ export default function Page({
   requireNotAuth,
   children,
 }: Props) {
-  const [loading, setLoading] = useState(true);
   const { session } = useContext(SessionContext);
 
   const navigation = useNavigate();
@@ -35,8 +34,6 @@ export default function Page({
       navigation("/", {
         replace: true,
       });
-    } else {
-      setLoading(false);
     }
   }, [requireAuth, requireNotAuth, session.isLoggedIn]);
 
@@ -48,7 +45,7 @@ export default function Page({
           <meta name="robots" content="noindex, nofollow" />
         )}
       </Helmet>
-      {loading ? <FullPageLoading /> : children}
+      {children}
     </>
   );
 }
