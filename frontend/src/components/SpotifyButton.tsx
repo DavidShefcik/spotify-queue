@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { css, StyleSheet } from "aphrodite";
 import { PulseLoader } from "react-spinners";
 import { PREVENT_TEXT_HIGHLIGHTING } from "~/constants/styles";
@@ -8,6 +9,9 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
   width?: string;
+  backgroundColor?: string;
+  hoverBackgroundColor?: string;
+  textColor?: string;
 }
 
 export default function SpotifyButton({
@@ -16,17 +20,28 @@ export default function SpotifyButton({
   disabled,
   loading,
   width = "160px",
+  backgroundColor = "var(--spotify-green)",
+  hoverBackgroundColor = "var(--spotify-dark-green)",
+  textColor = "white",
 }: Props) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <button
+      style={{
+        width,
+        color: textColor,
+        backgroundColor: hovered ? hoverBackgroundColor : backgroundColor,
+      }}
       className={css([
         styles.button,
         disabled || loading ? styles.disabled : styles.enabled,
       ])}
-      style={{ width }}
       title={text}
       disabled={disabled || loading}
       onClick={() => onClick && onClick()}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {loading ? <PulseLoader color="white" size={10} /> : text}
     </button>
@@ -36,8 +51,6 @@ export default function SpotifyButton({
 const styles = StyleSheet.create({
   button: {
     ...PREVENT_TEXT_HIGHLIGHTING,
-    color: "white",
-    backgroundColor: "var(--spotify-green)",
     padding: "16px 14px 18px",
     fontSize: "14px",
     lineHeight: "1",
@@ -47,22 +60,18 @@ const styles = StyleSheet.create({
     transitionDuration: "0.3s",
     borderWidth: 0,
     letterSpacing: "2px",
-    minWidth: "160px",
     textTransform: "uppercase",
     whiteSpace: "normal",
     fontWeight: 700,
     height: "48px",
     overflow: "hidden",
+    outline: 0,
   },
   enabled: {
     cursor: "pointer",
-    ":hover": {
-      backgroundColor: "var(--spotify-dark-green)",
-    },
   },
   disabled: {
     cursor: "not-allowed",
-    backgroundColor: "var(--spotify-dark-green)",
     opacity: 0.7,
   },
 });

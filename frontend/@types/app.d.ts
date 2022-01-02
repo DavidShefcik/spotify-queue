@@ -5,6 +5,6 @@ declare interface User {
   hasSpotifyPremium: boolean;
 }
 declare interface Session {
-  loggedIn: boolean;
+  isLoggedIn: boolean;
   user: User | null;
 }

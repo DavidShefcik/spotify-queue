@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
 import { Helmet } from "react-helmet";
 
@@ -22,7 +22,7 @@ export default function Page({
   children,
 }: Props) {
   const [loading, setLoading] = useState(true);
-  const session = useContext(SessionContext);
+  const { session } = useContext(SessionContext);
 
   const navigation = useNavigate();
 

@@ -6,12 +6,15 @@ import { api } from "~/utils/api";
 import SessionContext from "~/context/SessionContext";
 
 export default function LogoutPage() {
-  const session = useContext(SessionContext);
+  const { setSession } = useContext(SessionContext);
 
   useEffect(() => {
     (async () => {
       await api.logout();
-      session.logout();
+      setSession({
+        isLoggedIn: false,
+        user: null,
+      });
     })();
   }, []);
 

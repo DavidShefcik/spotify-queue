@@ -16,7 +16,7 @@ export default function Callback() {
   const [searchParams] = useSearchParams();
   const navigation = useNavigate();
 
-  const session = useContext(SessionContext);
+  const { setSession } = useContext(SessionContext);
 
   useEffect(() => {
     const error = searchParams.get("error");
@@ -33,11 +33,13 @@ export default function Callback() {
 
         if (error) {
           setError(true);
+          setLoading(false);
         } else if (response) {
-          session.login(response);
+          setSession({
+            isLoggedIn: true,
+            user: response,
+          });
         }
-
-        setLoading(false);
       })();
     }
   }, []);
