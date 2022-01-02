@@ -1,3 +1,5 @@
+import { CSSPropertiesComplete } from "aphrodite";
+
 export const PREVENT_TEXT_HIGHLIGHTING = {
   "-webkit-touch-callout": "none",
   "-webkit-user-select": "none",

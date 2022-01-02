@@ -5,7 +5,7 @@ import { PREVENT_TEXT_HIGHLIGHTING } from "~/constants/styles";
 
 interface Props {
   text: string;
-  onClick(): void;
+  onClick?(): void;
   disabled?: boolean;
   loading?: boolean;
   width?: string;
@@ -37,6 +37,7 @@ export default function SpotifyButton({
         styles.button,
         disabled || loading ? styles.disabled : styles.enabled,
       ])}
+      type="submit"
       title={text}
       disabled={disabled || loading}
       onClick={() => onClick && onClick()}

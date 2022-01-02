@@ -76,10 +76,6 @@ export default function Modal({
     }
   }, [componentMounted]);
 
-  if (!componentMounted) {
-    return null;
-  }
-
   const submitButton = (
     <SpotifyButton text="Ok" onClick={submitModal} width="125px" />
   );
@@ -107,6 +103,10 @@ export default function Modal({
         );
     }
   }, [buttonTypes]);
+
+  if (!componentMounted) {
+    return null;
+  }
 
   return (
     <div className={css([styles.overlay, currentCSSClass])}>

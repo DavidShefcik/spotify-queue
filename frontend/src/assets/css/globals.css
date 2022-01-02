@@ -39,3 +39,12 @@ body {
   width: 100%;
   height: 100%;
 }
+a {
+  color: var(--spotify-green);
+  text-decoration: none;
+  transition: "colors 0.01s linear";
+}
+a:hover,
+a:focus {
+  color: var(--spotify-dark-green);
+}
