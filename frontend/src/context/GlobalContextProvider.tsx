@@ -1,12 +1,12 @@
-import { ReactChild, useState, useEffect } from "react";
+import { ReactNode, useState, useEffect } from "react";
 
 import SessionContext from "./SessionContext";
+import LogoutModalContext from "./ui/LogoutModalContext";
 import FullPageLoading from "~/components/FullPageLoading";
 import { api } from "~/utils/api";
-import { AuthCheckResponse } from "~/utils/api/types";
 
 interface Props {
-  children: ReactChild;
+  children: ReactNode;
 }
 
 export default function GlobalContextProvider({ children }: Props) {
@@ -15,6 +15,8 @@ export default function GlobalContextProvider({ children }: Props) {
   // Session
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<Session["user"]>(null);
+  // Logout
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
 
   const setSession = ({ isLoggedIn: newLoggedIn, user: newUser }: Session) => {
     setIsLoggedIn(newLoggedIn);
@@ -46,7 +48,14 @@ export default function GlobalContextProvider({ children }: Props) {
     <SessionContext.Provider
       value={{ session: { isLoggedIn, user }, setSession }}
     >
-      {loading ? <FullPageLoading /> : children}
+      <LogoutModalContext.Provider
+        value={{
+          visible: logoutModalVisible,
+          setVisible: (val) => setLogoutModalVisible(val),
+        }}
+      >
+        {loading ? <FullPageLoading /> : children}
+      </LogoutModalContext.Provider>
     </SessionContext.Provider>
   );
 }

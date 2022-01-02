@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { css, StyleSheet } from "aphrodite";
 
 import SessionContext from "~/context/SessionContext";
+import LogoutModalContext from "~/context/ui/LogoutModalContext";
 import SessionModalContext from "./SessionModalContext";
 
 import Page from "~/components/Page";
@@ -14,6 +15,7 @@ export default function HomePage() {
   const [sessionModalVisible, setSessionModalVisible] = useState(false);
 
   const { session } = useContext(SessionContext);
+  const { setVisible: setLogoutModalVisible } = useContext(LogoutModalContext);
 
   const navigation = useNavigate();
 
@@ -30,7 +32,7 @@ export default function HomePage() {
       <SessionModalContext.Provider
         value={{
           visible: sessionModalVisible,
-          setVisible: (val) => setSessionModalVisible(val),
+          setVisible: (val: boolean) => setSessionModalVisible(val),
         }}
       >
         <SessionModal />
@@ -45,6 +47,15 @@ export default function HomePage() {
               text="Create a Session"
               width="250px"
               onClick={createSession}
+            />
+          </div>
+          <div className={css(styles.marginTop)}>
+            <SpotifyButton
+              text="Logout"
+              width="250px"
+              backgroundColor="var(--red)"
+              hoverBackgroundColor="var(--dark-red)"
+              onClick={() => setLogoutModalVisible(true)}
             />
           </div>
         </Centered>
