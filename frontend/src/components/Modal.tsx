@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, createRef } from "react";
+import { ReactNode, useEffect, createRef, useMemo } from "react";
 import { css, StyleSheet } from "aphrodite";
 
 import useAnimateMount from "~/hooks/useAnimateMount";
@@ -93,23 +93,20 @@ export default function Modal({
       width="125px"
     />
   );
-  let buttonContainer = null;
 
-  switch (buttonTypes) {
-    case BUTTON_TYPES.OK:
-      buttonContainer = submitButton;
-      break;
-    case BUTTON_TYPES.SUBMIT:
-      buttonContainer = (
-        <>
-          {cancelButton}
-          {submitButton}
-        </>
-      );
-      break;
-    default:
-      buttonContainer = null;
-  }
+  const buttonContainer = useMemo(() => {
+    switch (buttonTypes) {
+      case BUTTON_TYPES.OK:
+        return submitButton;
+      case BUTTON_TYPES.SUBMIT:
+        return (
+          <>
+            {cancelButton}
+            {submitButton}
+          </>
+        );
+    }
+  }, [buttonTypes]);
 
   return (
     <div className={css([styles.overlay, currentCSSClass])}>

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { css, StyleSheet } from "aphrodite";
 
 export enum CENTERED {
@@ -20,19 +20,16 @@ export default function Centered({
   height = "100%",
   children,
 }: Props) {
-  let containerStyle = {};
-
-  switch (centered) {
-    case CENTERED.VERTICAL:
-      containerStyle = styles.vertical;
-      break;
-    case CENTERED.HORIZONTAL:
-      containerStyle = styles.horizontal;
-      break;
-    case CENTERED.BOTH:
-      containerStyle = styles.both;
-      break;
-  }
+  const containerStyle = useMemo(() => {
+    switch (centered) {
+      case CENTERED.VERTICAL:
+        return styles.vertical;
+      case CENTERED.HORIZONTAL:
+        return styles.horizontal;
+      case CENTERED.BOTH:
+        return styles.both;
+    }
+  }, [centered]);
 
   return (
     <div

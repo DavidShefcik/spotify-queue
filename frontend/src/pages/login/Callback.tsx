@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
-import { StyleSheet, css } from "aphrodite";
+import { css, StyleSheet } from "aphrodite";
 
 import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
