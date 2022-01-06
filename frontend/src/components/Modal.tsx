@@ -4,7 +4,7 @@ import { css, StyleSheet } from "aphrodite";
 import useAnimateMount from "~/hooks/useAnimateMount";
 import useOnOutsideClick from "~/hooks/useOnOutsideClick";
 import Centered, { CENTERED } from "./Centered";
-import SpotifyButton from "./SpotifyButton";
+import SpotifyButton from "./inputs/SpotifyButton";
 import { PREVENT_TEXT_HIGHLIGHTING } from "~/constants/styles";
 
 const ANIMATION_DURATION_MS = 150;

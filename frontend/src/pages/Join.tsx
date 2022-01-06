@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 
 import Page from "~/components/Page";
 import CenteredPageTitle from "~/layout/CenteredPageTitle";
-import Digits, { DIGIT_SIZE } from "~/components/Digits";
-import SpotifyButton from "~/components/SpotifyButton";
+import Digits, { DIGIT_SIZE } from "~/components/inputs/Digits";
+import SpotifyButton from "~/components/inputs/SpotifyButton";
+import useDeviceSize, { DEVICE_SIZE } from "~/hooks/useDeviceSize";
 
 export default function JoinPage() {
   const [code, setCode] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const deviceSize = useDeviceSize();
 
   const join = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,12 +37,16 @@ export default function JoinPage() {
               value={code}
               onChange={(val) => setCode(val)}
               error={!!error}
-              digitSize={DIGIT_SIZE.LARGE}
+              digitSize={
+                deviceSize === DEVICE_SIZE.MOBILE
+                  ? DIGIT_SIZE.SMALL
+                  : DIGIT_SIZE.LARGE
+              }
               autoFocus
             />
           </div>
           {error && (
-            <div>
+            <div className={css(styles.topMargin)}>
               <h3 className={css(styles.error)}>{error}</h3>
             </div>
           )}
@@ -72,7 +79,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   error: {
-    marginTop: "30px",
     fontSize: "20px",
     color: "var(--red)",
     textAlign: "center",

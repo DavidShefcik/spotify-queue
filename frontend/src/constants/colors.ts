@@ -1,0 +1,9 @@
+export enum COLORS {
+  SPOTIFY_GREEN = "#1db954",
+  SPOTIFY_DARK_GREEN = "#15883e",
+  SPOTIFY_BLACK = "#191414",
+  GRAY = "#e8e8e8",
+  DARK_GRAY = "#888888",
+  RED = "#c53030",
+  DARK_RED = "#822727",
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
-import SpotifyButton from "~/components/SpotifyButton";
+import SpotifyButton from "~/components/inputs/SpotifyButton";
 import { api } from "~/utils/api";
 
 export default function LoginPage() {

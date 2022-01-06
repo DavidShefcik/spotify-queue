@@ -8,7 +8,7 @@ import SessionModalContext from "./SessionModalContext";
 
 import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
-import SpotifyButton from "~/components/SpotifyButton";
+import SpotifyButton from "~/components/inputs/SpotifyButton";
 import SessionModal from "./SessionModal";
 
 export default function HomePage() {

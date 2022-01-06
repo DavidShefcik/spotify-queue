@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { css, StyleSheet } from "aphrodite";
 
 import Centered, { CENTERED } from "~/components/Centered";
-import SpotifyButton from "~/components/SpotifyButton";
+import SpotifyButton from "~/components/inputs/SpotifyButton";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();

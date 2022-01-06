@@ -5,7 +5,7 @@ import { css, StyleSheet } from "aphrodite";
 
 import Page from "~/components/Page";
 import Centered, { CENTERED } from "~/components/Centered";
-import SpotifyButton from "~/components/SpotifyButton";
+import SpotifyButton from "~/components/inputs/SpotifyButton";
 import { api } from "~/utils/api";
 import SessionContext from "~/context/SessionContext";
 
