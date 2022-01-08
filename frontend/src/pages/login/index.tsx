@@ -18,8 +18,6 @@ export default function LoginPage() {
 
       window.location.href = oauth_url;
     }
-
-    setLoading(false);
   };
 
   return (
